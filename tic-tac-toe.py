@@ -10,16 +10,23 @@ def interface():
             r = Rectangle(Point(i*100, (j+1)*100), Point((j+1)*100, 100*i))
             r.draw(win)
 
-
-def getClick():  # re-orientation x
+'''
+    789  1,1 2,1 3,1
+    456  1,2 2,2 3,2
+    123  1,3 2,3 3,3
+'''
+def getClick():  # re-orientation
     click = win.getMouse()
     clickx = click.getX()
     clicky = click.getY()
     x = math.ceil(clickx / 100)
     y = math.ceil(clicky / 100)
-    return (x, y)  # 0-14 0-9
+    print (x,y)
+    return (x + 3 * (3-y))
+
 
 def drawCross(x,y):
+    # type: (object, object) -> object
     line1 = Line(Point(100*x-75, 100*y-75),Point(100*x-25,100*y-25))
     line1.draw(win)
     line2 = Line(Point(100 * x - 75, 100 * y - 25), Point(100 * x - 25, 100 * y - 75))
@@ -30,9 +37,12 @@ def drawCircle(x,y):
 
 def main():
     interface()
-    p1 = getClick()
-    drawCross(p1[0], p1[1])
-    drawCircle(getClick()[0], getClick()[1])
-    getClick()
+    board = [' ']*10
+    while(True):
+        p1 = getClick()
+        drawCross(p1[0], p1[1])
+        p2 = getClick()
+        drawCircle(p2[0], p2[1])
+        getClick()
     win.getMouse()
 main()
